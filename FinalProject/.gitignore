@@ -1,7 +1,10 @@
 .gradle
 /local.properties
+/backend/build/*
 /.idea/*
 /.idea/libraries
 .DS_Store
 /build
 /captures
+/.idea
+.idea/*
