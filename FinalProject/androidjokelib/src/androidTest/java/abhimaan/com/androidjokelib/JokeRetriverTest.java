@@ -29,7 +29,7 @@ public class JokeRetriverTest
             //Assuming the call will not take more than 20 seconds
             try
                 {
-                    Thread.sleep(60000);
+                    Thread.sleep(20000);
                 } catch (InterruptedException e)
                 {
                     e.printStackTrace();

@@ -16,26 +16,26 @@ allprojects {
     repositories {
         jcenter()
     }
-    task runFunctionaltest(dependsOn: [':backend:appengineStop',':androidjokelib:connectedAndroidTest']) {
-        doFirst {
-            ':androidjokelib:connectedAndroidTest'
-        }
-//        project(':myproject1').tasks.build.execute() androidjokelib:connectedAndroidTest.finalizedBy(backend:appengineStop)
-        doLast{
-            'backend:appengineStop'
-        }
-    }
-    task runAsynchTest(dependsOn: [ 'runFunctionaltest',':backend:appengineRun']) {
-        doFirst {
-            daemon=true
-            ':backend:appengineRun'
+}
 
+
+    task udacityTestTask (dependsOn: [':androidjokelib:connectedCheck', ':backend:appengineRun']) {
+        evaluationDependsOn ':androidjokelib'
+        evaluationDependsOn ':backend'
+
+        project(':backend') {
+            appengine {
+                daemon true
+            }
+
+            tasks.getByPath(':androidjokelib:connectedCheck')  .mustRunAfter tasks.getByPath(':backend:appengineRun')
         }
+
+        finalizedBy tasks.getByPath(':backend:appengineStop')
 
         doLast {
-            runFunctionaltest
+            println ' Test completed'
         }
     }
 
 
-}
